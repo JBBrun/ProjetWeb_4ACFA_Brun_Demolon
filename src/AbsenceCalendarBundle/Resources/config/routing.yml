@@ -1,0 +1,3 @@
+absence_calendar_homepage:
+    path:     /
+    defaults: { _controller: AbsenceCalendarBundle:Default:index }

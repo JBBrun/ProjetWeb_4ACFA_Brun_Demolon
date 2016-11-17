@@ -1,0 +1,131 @@
+{#{% extends "AbsenceBundle::main.html.twig" %}#}
+{% extends "AbsenceBundle::template.html.twig" %}
+
+
+{% block titre %}
+    <link href="{{  asset('bundles/Absenceuser/css/AbsenceUser.css')}}" rel="stylesheet" type="text/css" />
+    <spam  class="page-header"> LISTE DES UTILISATEURS </spam>
+
+{% endblock %}
+
+{% block body %}
+
+
+
+
+
+    {% if listAbsence is defined %}
+
+        {% set nombre = 0 %}
+        {% for absence in listAbsence %}
+                {% set nombre = nombre+1 %}
+        {% endfor %}
+
+        {% if nombre ==0 %}
+            <i class="text-center center-block">Aucune absence correspond à votre recherche, <br>
+                veuillez recommencer.<br></i><br>
+            {% else %}
+
+
+        {% if nombre > 0 %}
+
+            <i class="text-center center-block">Il y'a  {{ nombre }}  absences(s)<br></i><br>
+
+                {% endif %}
+
+{% endif %}
+
+        {% if form is defined %}
+            <div class="centerForm">
+                {{ form(form) }}
+            </div>
+            {% else %}
+                <a href="/list/search">
+                    <button type="submit" class="btn btn-primary center-block"  class="btn btn-default  center-block">Rechercher un utilisateur</button><br><br>
+                </a>
+        {% endif %}
+
+      {#  {%  include "AbsenceBundle:absence:deleteAbsence.html.twig" with {"delete" : "all" }%} #}
+
+        {% if app.session.flashBag.has('success') %}
+            <div class="alert alert-success">
+                {% for msg in app.session.flashBag.get('success') %}
+                    {{ msg }}
+                {% endfor %}
+            </div>
+        {% endif %}
+
+
+            <div class="table-responsive " >
+            <table class="table table-bordered" >
+            <tr class="info">
+
+                <th>Username
+                    <a href="/list/orderAbsence/UA" ><i class="fa fa-arrow-up"></i> </a>
+                    <a href="/list/orderAbsence/UD" ><i class="fa fa-arrow-down"></i> </a>
+                </th>
+                <th>Motif
+
+                </th>
+                <th>
+                    <a href="/list/orderAbsence/JU" > Justifiée <i class="fa fa-check"></i></a> /
+                    <a href="/list/orderAbsence/IN" > Injustifiée <i class="fa fa-times"></i></a>
+                </th>
+                </th>
+                <th>Date et heure
+                </th>
+                <th>Editer/Supprimer</th>
+            </tr>
+
+        {% for absence in listAbsence %}
+
+                {% if absence.justify == "1" %}
+                     <tr class="success">
+                {% else %}
+                    <tr class="danger">
+                {% endif %}
+
+                {% if modify is defined %}
+                    {%  if modify == absence.id %}
+                        <tr class="warning">
+                    {% endif %}
+                {% endif %}
+
+                <td>
+                    {% if listUser is defined %}
+                        <a href="/absence/user/{{listUser[absence.id].id }}">{{  listUser[absence.id] }}</a>
+                    {% else %}
+                        Not found
+                    {% endif %}
+                </td>
+
+                <td> {{ absence.reason }}</td>
+
+                    <td> {% if absence.justify == 1 %}
+                         {% else %}
+                              Non justifié
+                        {% endif %}
+                    </td>
+                  <td>
+                   {# {% if user.enabled == 1 %}
+                        <a href="{{ path('absence_List_disable',{"id" : absence.id}) }}"><i class="fa fa-check enable"></i></a>
+                        {% else %}
+                    <a href="{{ path('absence_List_enable',{"id" : user.id}) }}"><i class="fa fa-times disable"></i></a>
+                        {% endif %}#}
+                    {{ absence.date|date("d/m/Y H:i" ) }}
+                </td>
+                <td>
+                    <a href="{{ path("absence_list_update",{'idUser': listUser[absence.id].id, 'idAbsence' : absence.id})}}" /><i class="fa fa-edit"></i></a>
+                        {%  include "AbsenceBundle:absence:deleteAbsence.html.twig" with {"absence" : absence,"delete" : "unique" }%}
+                </td>
+
+            </tr>
+        {% endfor %}
+        {% endif %}
+
+
+            </table>
+        </div>
+
+
+{% endblock %}

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>{% block title %} {% endblock title %}Absence</title>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+
+    <link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap/dist/css/bootstrap.min.css') }}"/>
+    <script src="{{asset('assets/vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+
+    <link rel="stylesheet" href="{{ asset('bundles/Absence/css/form.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('bundles/Absence/css/template.css') }}"/>
+
+    <script type="text/javascript" src="{{ asset('assets/vendor/moment/moment.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/vendor/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('assets/vendor/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css') }}"/>
+
+
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('css/bootstrap-datepicker.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('css/bootstrap-datepicker3.css') }}"/>
+    <script src="{{ asset('js/bootstrap-datepicker.js') }}"></script>
+
+    {#<link rel="icon" type="image/png" href="favicon.ico">
+   #}
+
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    {% block stylesheets %} {% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+</head>
+<body>
+

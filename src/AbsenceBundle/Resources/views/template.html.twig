@@ -1,0 +1,29 @@
+{{ include("AbsenceBundle::header.html.twig") }}
+{% if is_granted("ROLE_USER") %}
+    {{ include("AbsenceBundle::menu.html.twig") }}
+{% endif %}
+
+{% if form is defined %}
+    {% form_theme form 'bootstrap_3_layout.html.twig' %}
+{% endif %}
+
+<html xmlns="http://www.w3.org/1999/xhtml" style="margin-top: 0px !important; padding-top: 0px !important">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <!--<link rel="stylesheet" href="http://{{ app.request.server.get("HTTP_HOST") }}/bundles/Absence/css/templateMail.css"/>-->
+</head>
+<div style="background: #FFFFFF; color: #000000 !important; font-family: Arial; font-size: 14px;" bgcolor="#FFFFFF">
+<!--<div style="background-repeat: no-repeat; height: 60px; position: absolute; left:0; top:0;  display: inline-block; width:50%; float:left; background-position:left top; background-image:url(http://{{ app.request.server.get("HTTP_HOST") }}/bundles/Absence/images/image-8ed1f44f2e610addcaae276554bd8434aa8c38ec.jpg);">
+-->
+
+        <h2 class="text-center blue-title " style="margin-bottom: 20px; margin-top: -25px" >
+            {% block titre %}
+            {% endblock %}
+        </h2>
+
+        {%  block body %}
+     {%  endblock %}
+</div>
+
+</html>
+{{ include("AbsenceBundle::footer.html.twig") }}

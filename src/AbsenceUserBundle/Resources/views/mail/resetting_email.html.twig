@@ -1,0 +1,17 @@
+{% extends "OpenPeBundle:mail:layout.html.twig" %}
+
+
+{% block title %}
+
+    Bonjour {{ user.username }}
+
+{% endblock %}
+
+{% block body %}
+
+    Pour réinitialiser votre mot de passe, merci de <a href="http://{{ app.request.server.get("HTTP_HOST") }}/resetting/reset/{{ confirmationUrl }}">cliquer ici</a>. <br><br>
+
+    Cordialement,<br>
+    Ecnesba
+
+{% endblock %}

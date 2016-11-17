@@ -1,0 +1,18 @@
+{% extends "AbsenceBundle::template.html.twig" %}
+
+{% block titre %}
+   CHANGEMENT DE MOT DE PASSE PRIS EN COMPTE
+{% endblock %}
+
+{% block body %}
+    <div class="text-center">
+
+        {% if email is defined %}
+            Un e-mail a été envoyé à votre adresse. Il contient un lien sur lequel il vous faudra cliquer afin de réinitialiser votre mot de passe.
+        {% endif %}
+        <br><br>
+        <a href="/login">
+            <button type="submit" class="btn btn-primary" class="btn btn-default">Retour login</button>
+        </a>
+    </div>
+{% endblock %}

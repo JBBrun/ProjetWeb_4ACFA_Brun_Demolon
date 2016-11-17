@@ -1,0 +1,37 @@
+{#{% extends "AbsenceBundle::main.html.twig" %}#}
+{% extends "AbsenceBundle::template.html.twig" %}
+{% block titre %}
+    <spam  class="page-header" id="add_Absence"> NOUVELLE ABSENCE </spam>
+
+{% endblock %}
+{% block body %}
+
+
+    {% if absence is defined %}
+        <i class="text-center center-block alert-success"><span id="id_add_Absence_success" >L'absence a été créée avec success /span> <br></i>
+    {% endif %}
+
+        <i class="text-center center-block"><span id="id_add_Absence_form" >Cette page permet de créer une nouvelle absence a un étudiant</span><br></i>
+
+
+    {% if form is defined %}
+
+        <div class="centerForm">
+            {{ form(form) }}
+        </div>
+    {% endif %}
+
+    {% if absence is defined %}
+
+        <div class="text-center">
+            <br><br>
+
+            <a href="/">
+                <button type="submit" class="btn btn-primary" class="btn btn-default">Page D'accueil</button>
+            </a>
+
+
+        </div>
+    {% endif %}
+
+{% endblock %}

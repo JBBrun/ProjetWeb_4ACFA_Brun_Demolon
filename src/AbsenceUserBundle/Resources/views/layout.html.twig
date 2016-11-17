@@ -1,0 +1,14 @@
+{#{% extends "AbsenceBundle::main.html.twig" %}#}
+{% extends "AbsenceBundle::template.html.twig" %}
+
+{% block titre %}
+    {% block title %}
+
+    {% endblock title %}
+{% endblock %}
+
+{% block body %}
+    {% block fos_user_content %}
+
+    {% endblock fos_user_content %}
+{% endblock %}

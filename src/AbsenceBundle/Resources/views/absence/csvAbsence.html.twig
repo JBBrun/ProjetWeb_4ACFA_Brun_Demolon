@@ -1,0 +1,37 @@
+{#{% extends "AbsenceBundle::main.html.twig" %}#}
+
+{% block body %}
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <form enctype="multipart/form-data" action="/import" method="post">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Import</h4>
+                    </div>
+                    <div class="modal-body">
+                        <!-- MAX_FILE_SIZE doit précéder le champ input de type file -->
+                        <input type="hidden" name="MAX_FILE_SIZE" value="200000"/>
+                        <!-- Le nom de l'élément input détermine le nom dans le tableau $_FILES -->
+                        Envoyez ce fichier : <input name="importFile" type="file"/>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="submit" class="btn btn-primary"> </input>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <div style="margin-bottom: 10px;">
+        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+            Importer CSV
+        </button>
+        <a class="btn btn-primary btn-medium" href="/download">Exporter CSV</a>
+    </div>
+
+{% endblock %}

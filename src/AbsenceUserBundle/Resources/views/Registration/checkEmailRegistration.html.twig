@@ -1,0 +1,24 @@
+{#{% extends "AbsenceBundle::main.html.twig" %}#}
+{% extends "AbsenceBundle::template.html.twig" %}
+
+{% block titre %}
+    CRÉATTION DE COMPTE RÉUSSIE
+{% endblock %}
+
+{% block body %}
+    <div class="text-center">
+
+        {% if email is defined %}
+            Un e-mail a été envoyé à l'adresse {{ email }}. Il contient un lien sur lequel il faudra cliquer afin d'activer le compte.
+        {% endif %}
+        <br><br>
+        <a href="{{ path('absence_user_list') }}">
+            <button type="submit" class="btn btn-primary" class="btn btn-default">Afficher liste</button>
+        </a>
+
+        <a href="/register">
+            <button type="submit"  class="btn btn-primary">Ajouter utilisateur</button>
+        </a>
+
+    </div>
+{% endblock %}

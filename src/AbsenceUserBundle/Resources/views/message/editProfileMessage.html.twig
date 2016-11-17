@@ -1,0 +1,11 @@
+{% if profile is defined %}
+    Bonjour,
+
+    L'administrateur a modifié votre compte.
+    Votre  username est le suivant : {{ profile['username']}}
+    Votre  email est le suivant : {{ profile['email']}}
+
+    Ce mail a été envoyé par .
+{% else %}
+    Error, no data found
+{% endif %}

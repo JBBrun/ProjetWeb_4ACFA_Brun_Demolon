@@ -1,0 +1,137 @@
+{#{% extends "AbsenceBundle::main.html.twig" %}#}
+{% extends "AbsenceBundle::template.html.twig" %}
+
+
+{% block titre %}
+    <link href="{{  asset('bundles/Absenceuser/css/AbsenceUser.css')}}" rel="stylesheet" type="text/css" />
+    <spam  class="page-header"> LISTE DES UTILISATEURS </spam>
+
+{% endblock %}
+
+{% block body %}
+
+
+
+
+
+    {% if listUser is defined %}
+
+        {% set nombre = 0 %}
+        {% for user in listUser %}
+            {% if user.roles[0] == "ROLE_USER" and user.roles[0] is defined%}
+                {% set nombre = nombre+1 %}
+            {% endif %}
+        {% endfor %}
+
+
+        {% if nombre ==0 %}
+            <i class="text-center center-block">Aucune personne correspond à votre recherche, <br>
+                veuillez recommencer.<br></i><br>
+
+            {% else %}
+
+
+        {% if nombre > 0 %}
+
+            <i class="text-center center-block">Il y'a  {{ nombre }}  personne(s)<br></i><br>
+
+        {% endif %}
+
+    {% endif %}
+
+        {% if form is defined %}
+            <div class="centerForm">
+                {{ form(form) }}
+            </div>
+            {% else %}
+
+                <a href="/list/search">
+                    <button type="submit" class="btn btn-primary center-block"  class="btn btn-default  center-block">Rechercher un utilisateur</button><br><br>
+                </a>
+        {% endif %}
+
+        {% if app.session.flashBag.has('success') %}
+            <div class="alert alert-success">
+                {% for msg in app.session.flashBag.get('success') %}
+                    {{ msg }}
+                {% endfor %}
+            </div>
+        {% endif %}
+
+
+            <div class="table-responsive " >
+            <table class="table table-bordered" >
+            <tr class="info">
+
+                <th>Username
+                    <a href="/list/order/user/UA" ><i class="fa fa-arrow-up"></i> </a>
+                    <a href="/list/order/user/UD" ><i class="fa fa-arrow-down"></i> </a>
+                </th>
+                <th>Mail
+                    <a href="/list/order/user/MA" ><i class="fa fa-arrow-up"></i> </a>
+                    <a href="/list/order/user/MD" ><i class="fa fa-arrow-down"></i> </a>
+                </th>
+                <th>
+                    <li class="dropdown"  style="list-style-type:none;">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">Sélection année: {% if year is defined and year != "ALL"  %}{{ year }}{% else %}Toutes{% endif %}<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/list/order/year/ALL">ALL</a></li>
+                            <li><a href="/list/order/year/1A">1A</a></li>
+                            <li><a href="/list/order/year/2A">2A</a></li>
+                            <li><a href="/list/order/year/3A">3A</a></li>
+                            <li><a href="/list/order/year/3ACFA">3ACFA</a></li>
+                            <li><a href="/list/order/year/4A">4A</a></li>
+                            <li><a href="/list/order/year/4ACFA">4ACFA</a></li>
+                            <li><a href="/list/order/year/5A">5A</a></li>
+                            <li><a href="/list/order/year/5ACFA">5ACFA</a></li>
+                        </ul>
+                    </li>
+                </th>
+                <th>
+                    Nombre absences
+                </th>
+
+                <th>Editer/Supprimer</th>
+            </tr>
+        {% if listUser is defined %}
+        {% for user in listUser %}
+            {% if user.roles[0] == "ROLE_USER" %}
+
+                {% if modify is defined %}
+                    {%  if modify == user %}
+                        <tr class="warning">
+                    {% endif %}
+                    {% else%}
+                        <tr>
+                {% endif %}
+
+                <td> {{  user }}</td>
+                <td> {{ user.email }}</td>
+
+                <td>
+                    {{ user.year }}
+                </td>
+                <td>
+                    {% if listAbsence is defined %}
+                    <a href="/absence/user/{{ user.id }}">{{ listAbsence[user.id] }}</a>
+                        {% else %}
+                        Not found
+                        {% endif %}
+                </td>
+                <td>
+                    <a href="{{ path('user_list_update',{"id" : user.id}) }}"><i class="fa fa-edit"></i></a>
+                    {{ include("AbsenceUserBundle:User:deleteProfile.html.twig") }}
+
+                </td>
+            </tr>
+            {% endif %}
+        {% endfor %}
+        {% endif %}
+    {% endif %}
+            </table>
+        </div>
+
+
+
+{% endblock %}

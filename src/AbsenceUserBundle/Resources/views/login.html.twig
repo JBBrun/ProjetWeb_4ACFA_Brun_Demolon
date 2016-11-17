@@ -1,0 +1,36 @@
+{#{% extends "AbsenceBundle::main.html.twig" %}#}
+{% extends "AbsenceBundle::template.html.twig" %}
+
+{% block titre %}
+    <h1 style="margin-top: -45px;" class="login-z-index blue-title" >
+        Ecnesba</h1>
+    {% endblock%}
+{% block body %}
+
+    <i class="text-center center-block text-danger login-z-index">Veuillez entrer vos identifiants afin d'avoir accés aux
+        fonctionnalités d'Ecnesba</i><br>
+
+    <div class="text-center center-block centerForm login-z-index" style="height: 100%" >
+        {% if error %}
+            <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
+        <form action="{{ path('login_check') }}" method="post" class="">
+
+
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" class="form-control" name="_username" value="{{ last_username }}">
+            </div>
+            <div class="form-group">
+                <label for="password">Mot de passe:</label>
+                <input type="password" class="form-control" id="password" name="_password"/>
+            </div>
+            <button type="submit" class="btn btn-primary" class="btn btn-default">Connexion</button>
+            <br><br>
+        </form>
+        <a href="{{ path('fos_user_resetting_request') }}">
+            <button type="submit" class="btn btn-primary">Changer mot de passe</button>
+        </a>
+    </div>
+
+{% endblock %}

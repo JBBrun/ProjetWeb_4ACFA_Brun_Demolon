@@ -1,0 +1,72 @@
+{#{% extends "AbsenceBundle::main.html.twig" %}#}
+{% extends "AbsenceBundle::template.html.twig" %}
+{% block portefolio %}
+    <link rel="stylesheet" href="{{ asset('bundles/Absence/css/gallery/layout.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('bundles/Absence/css/gallery/normalize.css') }}"/>
+    <script src="{{asset('bundles/Absence/css/gallery/jquery.mixitup.min.js') }}"></script>
+{% endblock %}
+
+{% block titre %}
+    <spam  class="page-header" id="add_Absence"> MES ABSENCES </spam>
+
+{% endblock %}
+
+{% block body %}
+
+    <div style="margin:auto;display:block;width:960px" class="center">
+
+
+        {% if user is defined %}
+            <h2>{{ user.username }} - {{ user.year }}</h2>
+        {% endif %}
+
+        {% if listAbsence is defined %}
+            {% for absence in listAbsence %}
+                <div style="float:left; width:250px; border: 2px solid black; margin-left: 50px; margin-bottom:50px;">
+                    <h4 class="center" style="margin-left: 5px">Absence</h4>
+                    <ul>
+
+                        <li>
+                            Date absence : <br><b>{{ absence.date|date("d/m/Y H:i" ) }}</b>
+                        </li>
+                        <li>Motif : <b>{{ absence.reason}}</b></li>
+                        <li>Absence :
+                            <b> {% if absence.justify == 1 %}
+                                    Jusifiée
+                                {% else %}
+                                    Non justifiée
+                                {% endif %}</b></li>
+
+                        ---------------------------<br>
+                    </ul>
+                    <form enctype="multipart/form-data" action="/importAbsence" method="post">
+                        <!-- MAX_FILE_SIZE doit précéder le champ input de type file -->
+                        <input type="hidden" name="MAX_FILE_SIZE" value="200000"/>
+                        <!-- Le nom de l'élément input détermine le nom dans le tableau $_FILES -->
+                        Valider Absence : <br>
+                        <input name="importFile" type="file"/>
+                        <input type="hidden" name="userId" value="{{ user.id }}"/>
+                        <input type="hidden" name="absenceId" value="{{ absence.id }}"/>
+                        <input type="submit" class="btn btn-primary"> </input>
+                    </form>
+
+                    ---------------------------<br>
+
+                   {% if listFiles is defined and not null %}
+                          {% for files in listFiles %}
+                              {% if files.absence.id == absence.id %}
+                                  <a class="btn btn-primary btn-medium" href="/download/{{ files.id }}">{{ files.name }}</a>
+                                  <br>
+                              {% endif %}
+                           {% endfor %}
+
+                   {% endif %}
+                </div>
+
+            {% endfor %}
+        {% endif %}
+
+
+    </div>
+
+{% endblock %}

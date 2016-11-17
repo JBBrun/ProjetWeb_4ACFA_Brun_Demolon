@@ -1,0 +1,23 @@
+{{ include("AbsenceBundle::header.html.twig") }}
+
+{% if is_granted("ROLE_USER") %}
+{{ include("AbsenceBundle::menu.html.twig") }}
+{% endif %}
+
+<h2 class="text-center page-header ">
+    {% block titre %}
+
+    {% endblock %}
+</h2>
+
+{% if form is defined %}
+    {% form_theme form 'bootstrap_3_layout.html.twig' %}
+{% endif %}
+
+<div class="panel-body">
+    {% block body %}
+
+    {% endblock %}
+
+</div>
+{{ include("AbsenceBundle::footer.html.twig") }}

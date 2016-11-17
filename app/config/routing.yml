@@ -1,0 +1,44 @@
+absence_calendar:
+    resource: "@AbsenceCalendarBundle/Resources/config/routing.yml"
+    prefix:   /
+
+absence:
+    resource: "@AbsenceBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+absence_User:
+    resource: "@AbsenceUserBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+
+fos_user_security:
+    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+
+fos_user_change_password:
+    resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
+    prefix: /profile
+
+
+fos_user_profile:
+     resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
+     prefix: "/profile"
+
+fos_user_register:
+    resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
+    prefix: /register
+
+fos_user_resetting:
+    resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
+    prefix: /resetting
+
+absence_login:
+    path: /login
+
+login_check:
+    pattern: /login_check
+
+BladeTesterCalendarBundle:
+    resource: "@BladeTesterCalendarBundle/Resources/config/routing.yml"
+    prefix:   /

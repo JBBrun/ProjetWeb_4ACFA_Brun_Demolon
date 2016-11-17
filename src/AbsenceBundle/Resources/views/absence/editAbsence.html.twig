@@ -1,0 +1,32 @@
+{#{% extends "AbsenceBundle::main.html.twig" %}#}
+{% extends "AbsenceBundle::template.html.twig" %}
+{% block titre %}
+    <spam  class="page-header" id="add_Absence"> EDITION ABSENCE </spam>
+
+{% endblock %}
+{% block body %}
+
+
+    {% if absence is defined %}
+        <i class="text-center center-block alert-success"><span id="id_add_Absence_success" >L'absence a été modifiée avec success /span> <br></i>
+    {% endif %}
+
+    <i class="text-center center-block"><span id="id_add_Absence_form" >Cette page permet de modifier une absence</span><br></i>
+
+
+    {% if form is defined %}
+
+        <div class="centerForm">
+            {{ form(form) }}
+        </div>
+    {% endif %}
+
+    <div class="centerForm">
+        <div class="cent">
+            <a href="{{ path('list_absence') }}">
+                <button type="button" class="btn btn-primary ">Retour liste</button>
+            </a>
+        </div>
+    </div>
+
+{% endblock %}

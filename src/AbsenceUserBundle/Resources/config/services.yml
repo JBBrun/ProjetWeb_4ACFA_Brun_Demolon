@@ -1,0 +1,4 @@
+services:
+#    absence_user.example:
+#        class: AbsenceUserBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]

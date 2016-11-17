@@ -1,0 +1,43 @@
+<div class="modal fade" id="infos">
+    <div class="modal-dialog">
+        {%  if delete is defined and delete == 'all' %}
+        <form enctype="multipart/form-data" action="{{ path('absence_list_delete_all_justify') }}" method="post">
+        {% else %}
+        <form enctype="multipart/form-data" action="{{ path('absence_list_delete',{"id" : absence.id}) }}" method="post">
+        {% endif %}
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" >Confirmation</h4>
+                </div>
+                <div class="modal-body">
+                    {%  if delete is defined and delete == 'all' %}
+                        Etes-vous sur de vouloir supprimer toutes les absences justifiées
+                    {% else %}
+                        Etes-vous sur de vouloir supprimer cette Absence ?!
+                    {% endif %}
+
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" class="btn btn-primary" value="OUI"> </input>
+                    <button class="btn btn-info" data-dismiss="modal">NON</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+{%  if delete is defined and delete == 'all' %}
+    <a data-toggle="modal" href="#infos">
+    <i class="btn btn-primary">Supprimer toutes les absences</i>
+    <br>
+
+{% else %}
+
+        <a data-toggle="modal" href="#infos">
+            <i class="fa fa-times "></i>
+        </a>
+    </a>
+{% endif %}
