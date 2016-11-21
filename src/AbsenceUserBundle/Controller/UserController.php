@@ -50,9 +50,6 @@ class UserController extends Controller
             ->getRepository('AbsenceUserBundle:User')
             ->findBy(array(), array('username' => 'ASC'));
 
-        $em = $this->getDoctrine()->getManager();
-
-
         $listAbsence = array();
         foreach ($listUser as $user) {
             $Absence = $em
@@ -179,6 +176,14 @@ class UserController extends Controller
 
         $form = $this->createForm(new SearchType());
         $request = $this->get('request');
+
+        if ($request->getMethod() == 'POST') {
+
+            $keyword = $request->request->get('recherche');
+
+            if ($form->isValid()) {
+
+
         $em = $this->getDoctrine()->getManager();
         $form->handleRequest($request);
 
@@ -188,11 +193,16 @@ class UserController extends Controller
 
         $listUser1 = $em
             ->getRepository('AbsenceUserBundle:User')
-            ->findBy(array('email' => $recherche,));
+            ->findBy(array('email' => $recherche));
         $listUser2 = $em
             ->getRepository('AbsenceUserBundle:User')
-            ->findBy(array('username' => $recherche,));
+            ->findBy(array('username' => $recherche));
+
         $listUser = $listUser1 + $listUser2;
+        ladybug_dump($listUser1->getUsername());
+        ladybug_dump($listUser2);
+        ladybug_dump_die($listUser);
+
         $listAbsence = array();
         $em = $this->getDoctrine()->getManager();
         foreach ($listUser as $user) {
@@ -203,16 +213,13 @@ class UserController extends Controller
             $listAbsence[$user->getId()] = count($Absence);
         }
 
-        if ($request->getMethod() == 'POST') {
 
-            $keyword = $request->request->get('recherche');
-
-            if ($form->isValid()) {
 
                 return $this->render('AbsenceUserBundle::list.html.twig', array('listUser' => $listUser, 'data' => $recherche,'listAbsence' => $listAbsence));
             }
         }
 
+        $em = $this->getDoctrine()->getManager();
         $listUser = $em
             ->getRepository('AbsenceUserBundle:User')
             ->findBy(array(), array('username' => 'ASC'));

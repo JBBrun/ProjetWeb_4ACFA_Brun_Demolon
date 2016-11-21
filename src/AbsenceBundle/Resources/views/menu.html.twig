@@ -1,74 +1,79 @@
-<nav class="navbar navbar-default navbar navbar-fixed-top ">
-    <div class="container">
-        <div class="container-fluid ">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                        data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="/login"><i class="fa fa-home"></i>Ecnesba</a>
-            </div>
+<nav class="navbar navbar-default">{# style="background-image: url({{ asset('bundles/absence/images/fondNav.png') }});font-weight: bold;"#}
+    <div class="container-fluid ">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/login"><i class="fa fa-home"></i>Ecnesba</a>
+        </div>
 
-          {##}  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li><a  href="/absence/user/{{ app.user.id }}">Mes absences</a></li>
-                  {#  {% if app.user.username is defined %}
-                        {% if not is_granted('ROLE_ADMIN') %}
-                    <li><a  href="">Mon planning</a></li>
-                             <li><a  href="/absence">Mes absences</a></li>
-                        {% endif %}
+        {##}
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li><a href="/absence/user/{{ app.user.id }}">Mes absences</a></li>
+                {#  {% if app.user.username is defined %}
+                      {% if not is_granted('ROLE_ADMIN') %}
+                  <li><a  href="">Mon planning</a></li>
+                           <li><a  href="/absence">Mes absences</a></li>
+                      {% endif %}
+                  {% endif %}
+                  #}
+                {% if app.user.username is defined %}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-haspopup="true"
+                               aria-expanded="false"> <i class="fa fa-star">Etudiants</i><span
+                                        class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/register">Ajouter un nouvel etudiant</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="/list">Liste Etudiants</a></li>
+                            </ul>
+                        </li>
                     {% endif %}
-                    #}
-                                      {% if app.user.username is defined %}
-                        {% if is_granted('ROLE_ADMIN') %}
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                                   aria-expanded="false">  <i class="fa fa-star"> Gestion des Etudiants</i><span class="caret"></span></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="/register">Ajouter un nouvel etudiant</a></li>
-                                    <li role="separator" class="divider"></li>
-                                    <li><a href="/list">Liste Etudiants</a></li>
-                                </ul>
-                            </li>
-                        {% endif %}
-                        {% if is_granted('ROLE_ADMIN') %}
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                                   aria-expanded="false">  <i class="fa fa-star"> Gestion des Absences</i><span class="caret"></span></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="/add_absence">Ajouter une nouvelle absence</a></li>
-                                    <li role="separator" class="divider"></li>
-                                    <li><a href="/list_absence">Liste Absences</a></li>
-                                </ul>
-                            </li>
-                        {% endif %}
-
-                          {#
-                        {% if is_granted('ROLE_ADMIN') %}
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                                   aria-expanded="false">  <i class="fa fa-star">Import/Export</i><span class="caret"></span></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="/add_absence">Utilisateurs</a></li>
-                                    <li role="separator" class="divider"></li>
-                                    <li><a href="/list_absence">Absences</a></li>
-                                </ul>
-                            </li>
-                        {% endif %}
-                        #}
-
-                        <li><a href="/profile/edit">Mon Compte</a></li>
-
-                    <li><a href="{{ path('fos_user_security_logout') }}"><i class="fa fa-unlock"></i>  Déconnection</a></li>
-                        {% else %}
-                            <li><a href="/login"> <i class="fa fa-lock"></i>  Connexion</a></li>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-haspopup="true"
+                               aria-expanded="false"> <i class="fa fa-star">Absences</i><span
+                                        class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/add_absence">Ajouter une nouvelle absence</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="/list_absence">Liste Absences</a></li>
+                            </ul>
+                        </li>
                     {% endif %}
 
-                </ul>
-            </div>
+                    {#
+                  {% if is_granted('ROLE_ADMIN') %}
+                      <li class="dropdown">
+                          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                             aria-expanded="false">  <i class="fa fa-star">Import/Export</i><span class="caret"></span></a>
+                          <ul class="dropdown-menu">
+                              <li><a href="/add_absence">Utilisateurs</a></li>
+                              <li role="separator" class="divider"></li>
+                              <li><a href="/list_absence">Absences</a></li>
+                          </ul>
+                      </li>
+                  {% endif %}
+                  #}
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/profile/edit">Mon Compte</a></li>
+
+                    <li><a href="{{ path('fos_user_security_logout') }}"><i class="fa fa-unlock"></i> Déconnection</a>
+                    </li>
+                {% else %}
+                    <li><a href="/login"> <i class="fa fa-lock"></i> Connexion</a></li>
+                {% endif %}
+
+            </ul>
         </div>
     </div>
 </nav>

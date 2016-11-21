@@ -6,6 +6,7 @@ use AbsenceBundle\Entity\Files;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class ImportExportController extends Controller
 {
@@ -14,7 +15,7 @@ class ImportExportController extends Controller
     /**
      * export
      *
-     * @Route("/download/{fileId}")
+     * @Route("/downloadFile/{fileId}")
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
@@ -28,13 +29,14 @@ class ImportExportController extends Controller
                 ->getRepository('AbsenceBundle:Files')
                 ->find($fileId);
 
+
         $filename = $file->getName();
-      //  $filePath = $_SERVER['DOCUMENT_ROOT'] . '/uploads/jb/' . $filename;
-        $filePath = $file->getUrl();
+        $filePath = $_SERVER['DOCUMENT_ROOT'] . $file->getUrl();;
+
 
         $response = new Response();
-        //  $response->headers->set('Content-Description: File Transfer');
-        $response->headers->set('Content-Type', 'text/csv;');
+    //    $response->headers->set('Content-Description: File Transfer');
+    //    $response->headers->set('Content-Type', 'application/html;');
         $response->headers->set('Content-Disposition', 'attachment; filename=' . $filename);
         $response->headers->set('Content-Length', filesize($filePath));
         $response->sendHeaders();
@@ -45,8 +47,7 @@ class ImportExportController extends Controller
 
     /**
      * Import action
-     * @Route("/importAbsence", name="")
-     * ("/importAbsence/{{user.id}}/{{absence.id}}", name="")
+     * @Route("/importFile", name="")
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
@@ -95,7 +96,7 @@ class ImportExportController extends Controller
 
                 $file = new Files();
 
-                 $file->setUrl('/web/uploads/' . $user->getUsername().'/'.$absenceId .'/'.$filename);
+                 $file->setUrl('/uploads/' . $user->getUsername().'/'.$absenceId .'/'.$filename);
                  $file->setName($name);
                  $file->setAbsence($absence);
                 $em = $this->getDoctrine()->getManager();
@@ -113,6 +114,33 @@ class ImportExportController extends Controller
 
         return $this->redirect("/login");
 
+    }
+
+
+
+    /**
+     * Import action
+     * @Route("/removeFile/{userId}/{fileId}" , name="deleteFile")
+
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
+     * @return array
+     */
+    public function removeFileAction(Request $request, $userId, $fileId)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $file = $em
+            ->getRepository('AbsenceBundle:Files')
+            ->find($fileId);
+        $em->remove($file);
+        $em->flush();
+
+        $request->getSession()
+            ->getFlashBag()
+            ->add('success', 'Fichier supprimé');
+
+        return $this->redirect("/absence/user/".$userId);
     }
 
 

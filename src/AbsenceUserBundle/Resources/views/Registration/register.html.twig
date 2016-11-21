@@ -10,6 +10,7 @@
 {% endblock title %}
 
 {% block fos_user_content %}
+<div class="mid-block">
 
     <SCRIPT language=javascript>
 
@@ -24,5 +25,6 @@
     {% if is_granted("ROLE_ADMIN") %}
          {% include "FOSUserBundle:Registration:register_content.html.twig" %}
     {% endif %}
+    </div>
     </div>
 {% endblock fos_user_content %}

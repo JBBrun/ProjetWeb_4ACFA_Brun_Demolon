@@ -39,26 +39,20 @@
 
                         ---------------------------<br>
                     </ul>
-                    <form enctype="multipart/form-data" action="/importAbsence" method="post">
+                 {#   <form enctype="multipart/form-data" action="/importFile" method="post">
                         <!-- MAX_FILE_SIZE doit précéder le champ input de type file -->
-                        <input type="hidden" name="MAX_FILE_SIZE" value="200000"/>
+                        <input type="hidden" name="MAX_FILE_SIZE" value="2000000"/>
                         <!-- Le nom de l'élément input détermine le nom dans le tableau $_FILES -->
                         Valider Absence : <br>
                         <input name="importFile" type="file"/>
                         <input type="hidden" name="userId" value="{{ user.id }}"/>
                         <input type="hidden" name="absenceId" value="{{ absence.id }}"/>
                         <input type="submit" class="btn btn-primary"> </input>
-                    </form>
-
-                    ---------------------------<br>
+                    </form>#}
 
                    {% if listFiles is defined and not null %}
-                          {% for files in listFiles %}
-                              {% if files.absence.id == absence.id %}
-                                  <a class="btn btn-primary btn-medium" href="/download/{{ files.id }}">{{ files.name }}</a>
-                                  <br>
-                              {% endif %}
-                           {% endfor %}
+
+                       {%  include "AbsenceBundle:file:files.html.twig" with {"listFiles" : listFiles, "user" : user } %}
 
                    {% endif %}
                 </div>

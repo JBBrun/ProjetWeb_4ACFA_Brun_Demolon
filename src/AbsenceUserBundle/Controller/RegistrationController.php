@@ -62,15 +62,15 @@ class RegistrationController extends Controller
             if (null === $response = $event->getResponse()) {
 
               $data = $form->getData();
-
 /*
+
                 $message = \Swift_Message::newInstance()
                     ->setSubject('Compte activé')
-                    ->setFrom('Absence@gmail.com')
-                    ->setTo('Absence@gmail.com')
+                    ->setFrom($this->getParameter('mailer_user'))
+                    ->setTo($this->getParameter('mailer_destination'))
                     ->setBody(
                         $this->renderView(
-                            'AbsenceBundle:message:createMessage.html.twig',
+                            'AbsenceBundle:mail:InscriptionEmail.html.twig',
                             array('data' => $data),
                             'text/html'
 
@@ -82,8 +82,6 @@ class RegistrationController extends Controller
                 $userManager = $this->container->get('fos_user.user_manager');
                 $user->setPlainPassword($this->getParameter('mdpdefault'));
                 $userManager->updatePassword($user);
-                var_dump($data['year']);
-                exit;
                 $user->setYear($data['year']);
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($user);
