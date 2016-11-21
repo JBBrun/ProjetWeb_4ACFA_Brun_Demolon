@@ -177,17 +177,11 @@ class UserController extends Controller
         $form = $this->createForm(new SearchType());
         $request = $this->get('request');
 
-        if ($request->getMethod() == 'POST') {
-
-            $keyword = $request->request->get('recherche');
-
-            if ($form->isValid()) {
-
-
         $em = $this->getDoctrine()->getManager();
         $form->handleRequest($request);
 
         $data = $form->getData();
+
 
         $recherche = $data["recherche"];
 
@@ -199,9 +193,6 @@ class UserController extends Controller
             ->findBy(array('username' => $recherche));
 
         $listUser = $listUser1 + $listUser2;
-        ladybug_dump($listUser1->getUsername());
-        ladybug_dump($listUser2);
-        ladybug_dump_die($listUser);
 
         $listAbsence = array();
         $em = $this->getDoctrine()->getManager();
@@ -213,7 +204,12 @@ class UserController extends Controller
             $listAbsence[$user->getId()] = count($Absence);
         }
 
+                if ($request->getMethod() == 'POST') {
 
+                    $keyword = $request->request->get('recherche');
+
+
+                    if ($form->isValid()) {
 
                 return $this->render('AbsenceUserBundle::list.html.twig', array('listUser' => $listUser, 'data' => $recherche,'listAbsence' => $listAbsence));
             }
@@ -223,6 +219,16 @@ class UserController extends Controller
         $listUser = $em
             ->getRepository('AbsenceUserBundle:User')
             ->findBy(array(), array('username' => 'ASC'));
+
+        $listAbsence = array();
+        foreach ($listUser as $user) {
+            $Absence = $em
+                ->getRepository('AbsenceBundle:Absence')
+                ->findBy(array('user' => $user));
+
+            $listAbsence[$user->getId()] = count($Absence);
+        }
+
 
         return $this->render('AbsenceUserBundle::list.html.twig', array('listUser' => $listUser, 'form' => $form->createView(),'listAbsence' => $listAbsence));
     }
