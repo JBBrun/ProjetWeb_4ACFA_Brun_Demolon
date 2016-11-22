@@ -10,3 +10,5 @@
 /vendor/
 /bin/
 /web/assets/vendor
+/web/uploads
+.idea/workspace.xml

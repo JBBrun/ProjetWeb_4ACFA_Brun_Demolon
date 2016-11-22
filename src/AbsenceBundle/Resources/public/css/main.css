@@ -15,3 +15,55 @@
     box-shadow: 2px 10px 10px 5px #656565;
     filter: progid:DXImageTransform.Microsoft.Shadow(color='#6565', Direction=135, Strength=5);
 }
+
+.absence_block{
+width:250px; border: 2px solid black; margin-left: 50px; margin-bottom:50px; display:inline-block;
+}
+
+
+@media screen and (max-width: 951px){
+    .layout_absence{
+        margin: auto;
+        text-align: center
+    }
+
+    .absence_block{
+        width:250px; border: 2px solid black; margin-left: 50px; margin-bottom:50px; display:block;
+    }
+}
+
+
+.justify{
+    background:greenyellow;
+}
+
+.unjustify
+{
+    background:#DC143C;
+}
+
+.filed
+{
+    background:orange;
+}
+
+
+.login_title{
+    padding-top: 25px;
+}
+
+.blue-title
+{
+    text-shadow:none;
+    color:#6DB2F7!important;
+    font-style:normal;
+    font-family:Arial;
+    font-size:30px;
+    line-height: 1.6;
+    text-align: center;
+}
+
+.block-center{
+    margin: auto;
+    text-align: center
+}

@@ -7,23 +7,58 @@
 {% endblock %}
 
 {% block titre %}
-    <spam  class="page-header" id="add_Absence"> MES ABSENCES </spam>
+    <spam  class="page-header" id="add_Absence">
+    {% if user is defined %}
+        {% if app.user.username is defined %}
+            {% if app.user.id == user.id %}
+                MES
+            {% endif%}
+        {% endif%}
+    {% endif%}
+        ABSENCES
+        {% if user is defined %}
+            <h2>{{ user.username }}  {{ user.year }}</h2>
+        {% endif %}
+
+    </spam>
 
 {% endblock %}
 
 {% block body %}
 
-    <div style="margin:auto;display:block;width:960px" class="center">
+    <div style="margin:auto;display:block;width:960px" class="center layout_absence ">
 
 
-        {% if user is defined %}
-            <h2>{{ user.username }} - {{ user.year }}</h2>
-        {% endif %}
 
         {% if listAbsence is defined %}
             {% for absence in listAbsence %}
-                <div style="float:left; width:250px; border: 2px solid black; margin-left: 50px; margin-bottom:50px;">
-                    <h4 class="center" style="margin-left: 5px">Absence</h4>
+                {% if absence.justify == 1 %}
+                  <div class ="absence_block justify">
+                {% else   %}
+                    {% if listFiles is defined %}
+                        {% set filed = 0 %}
+                        {% for files in listFiles %}
+                            {% if files.absence.id == absence.id and filed == 0%}
+                                 <div class ="absence_block filed">
+                                     {% set filed = 1 %}
+                            {% endif %}
+                        {% endfor %}
+                         {% if filed == 0  %}
+                             <div class ="absence_block unjustify">
+                         {% endif%}
+                     {%  else %}
+                        <div class ="absence_block unjustify">
+                    {% endif %}
+                {% endif %}
+                    <h4 class="center" style="margin-left: 5px">Absence
+                        {% if app.user.username is defined %}
+                            {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path("absence_list_update",{'idUser': user.id, 'idAbsence' : absence.id})}}" /><i class="fa fa-edit"></i></a>
+                        {%  include "AbsenceBundle:absence:deleteAbsence.html.twig" with {"absence" : absence,"delete" : "unique" }%}
+                        {% endif %}
+                {% endif %}
+                    </h4>
+
                     <ul>
 
                         <li>
@@ -37,8 +72,9 @@
                                     Non justifiée
                                 {% endif %}</b></li>
 
-                        ---------------------------<br>
+
                     </ul>
+                    <hr>
                  {#   <form enctype="multipart/form-data" action="/importFile" method="post">
                         <!-- MAX_FILE_SIZE doit précéder le champ input de type file -->
                         <input type="hidden" name="MAX_FILE_SIZE" value="2000000"/>
@@ -52,7 +88,7 @@
 
                    {% if listFiles is defined and not null %}
 
-                       {%  include "AbsenceBundle:file:files.html.twig" with {"listFiles" : listFiles, "user" : user } %}
+                       {%  include "AbsenceBundle:file:files.html.twig" with {"listFiles" : listFiles, "user" : user, "absenceID" : absence.id } %}
 
                    {% endif %}
                 </div>

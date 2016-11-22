@@ -2,31 +2,39 @@
 {% set nbFiles = 0 %}
 {% block body %}
 
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal fade" id="Modal-{{ absenceID }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
             <form enctype="multipart/form-data" action="/importFile" method="post">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                     aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Import</h4>
+                        <h4 class="modal-title" id="myModalLabel">Import/Export</h4>
                     </div>
                     <div class="modal-body">
-                        <!-- MAX_FILE_SIZE doit précéder le champ input de type file -->
-                        <input type="hidden" name="MAX_FILE_SIZE" value="2000000"/>
-                        Valider Absence : <br>
-                        <input name="importFile" type="file"/>
-                        <input type="hidden" name="userId" value="{{ user.id }}"/>
-                        <input type="hidden" name="absenceId" value="{{ absence.id }}"/>
-                        ---------------------------<br>
+
+                        <h4 > Télécharger des fichiers : </h4>
                         {% for files in listFiles %}
-                            {% if files.absence.id == absence.id %}
+
+                            {% if files.absence.id == absenceID %}
                                 {% set nbFiles = nbFiles +1 %}
                                 <a class="btn btn-primary btn-medium" href="/downloadFile/{{ files.id }}">{{ files.name }}</a>
                                 <a href="{{ path("deleteFile",{'userId': user.id, 'fileId': files.id }) }}"> <i class="fa fa-times "></i></a>
-                                    <br>
+                                <br>
                             {% endif %}
                         {% endfor %}
+
+                        <hr>
+
+                        <!-- MAX_FILE_SIZE doit précéder le champ input de type file -->
+                        <input type="hidden" name="MAX_FILE_SIZE" value="2000000"/>
+                        <h4 >Importer un justificatif :</h4>
+                        <input name="importFile" type="file"/>
+                        <input type="hidden" name="userId" value="{{ user.id }}"/>
+                        <input type="hidden" name="absenceId" value="{{ absenceID }}"/>
+                       </div>
+                        <div class="modal-body">
+
                     </div>
                     <div class="modal-footer">
                         <input type="submit" class="btn btn-primary"> </input>
@@ -38,11 +46,11 @@
     </div>
 
 
-    <div style="margin-bottom: 10px;">
-        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-            Gérer les fichiers
+    <div class="block-center " style="margin-bottom: 10px;">
+        <button type="button" class="btn btn-primary btn-lg center" data-toggle="modal" data-target="#Modal-{{ absenceID }}">
+            Il y a {{ nbFiles }} fichier{% if nbFiles>1 %}s
         </button>
-         Il y a {{ nbFiles }} fichier{% if nbFiles>1 %}s{% endif %}.
+         {% endif %}.
     </div>
 
 {% endblock %}

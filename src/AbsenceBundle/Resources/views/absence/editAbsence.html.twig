@@ -24,7 +24,10 @@
     <div class="centerForm">
         <div class="cent">
             <a href="{{ path('list_absence') }}">
-                <button type="button" class="btn btn-primary ">Retour liste</button>
+                <button type="button" class="btn btn-primary ">Retour liste Absences</button>
+            </a>
+                <a href="{{ path("Absence_user",{'id': user.id}) }}">
+                <button type="button" class="btn btn-primary ">Retour Absences Utilisateur</button>
             </a>
         </div>
     </div>

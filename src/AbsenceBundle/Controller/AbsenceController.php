@@ -85,7 +85,7 @@ class AbsenceController extends Controller
     }
 
     /**
-     * @Route("/absence/user/{id}")
+     * @Route("/absence/user/{id}", name="Absence_user")
      */
     public function userAbsenceAction($id)
     {
@@ -334,6 +334,6 @@ class AbsenceController extends Controller
 
         }
         return $this->render('AbsenceBundle:absence:editAbsence.html.twig',
-            array('form' => $form->createView()));
+            array('form' => $form->createView(),"user" => $user));
     }
 }
