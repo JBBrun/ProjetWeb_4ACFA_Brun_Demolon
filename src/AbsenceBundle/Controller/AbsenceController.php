@@ -70,6 +70,19 @@ class AbsenceController extends Controller
                 $em->persist($absence);
                 $em->flush();
 
+                $message = \Swift_Message::newInstance()
+                    ->setSubject('Absence du '. $absence->getDate())
+                    ->setFrom($this->getParameter('mailer_user'))
+                    ->setTo($this->setTo($user->getEmail()))
+                    ->setBody(
+                        $this->renderView(
+                            'AbsenceBundle:absence:mailAbsence.html.twig',
+                            array('absence' => $absence, 'user' => $user),
+                            'text/html'
+
+                        ));
+
+                $this->get('mailer')->send($message);
 
                 $request->getSession()
                     ->getFlashBag()
