@@ -62,27 +62,29 @@ class RegistrationController extends Controller
             if (null === $response = $event->getResponse()) {
 
               $data = $form->getData();
-/*
+
 
                 $message = \Swift_Message::newInstance()
                     ->setSubject('Compte activé')
                     ->setFrom($this->getParameter('mailer_user'))
-                    ->setTo($this->getParameter('mailer_destination'))
+                    ->setTo($data->getEmail())
                     ->setBody(
                         $this->renderView(
-                            'AbsenceBundle:mail:InscriptionEmail.html.twig',
+                            'AbsenceUserBundle:mail:InscriptionMail.html.twig',
                             array('data' => $data),
                             'text/html'
 
                         ));
 
                 $this->get('mailer')->send($message);
-*/
+
 
                 $userManager = $this->container->get('fos_user.user_manager');
                 $user->setPlainPassword($this->getParameter('mdpdefault'));
                 $userManager->updatePassword($user);
-                $user->setYear($data['year']);
+                //var_dump($data);
+                //exit;
+                //$user->setYear($data['year']);
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($user);
                 $em->flush();
