@@ -1,15 +1,4 @@
-{% extends "AbsenceBundle::template.html.twig" %}
-
-{% block title %}
-
-    Bienvenue sur Ecnesba
-
-{% endblock %}
-
-{% block body %}
-
-
-    Bonjour,<br><br>
+ Bonjour,<br><br>
 
     La création de votre compte vient d'être réalisée sur Ecnesba avec votre adresse email.<br>
 
@@ -17,6 +6,7 @@
         Bonjour,
         Votre  username est le suivant : {{ data['username']}}
         Votre  email est le suivant : {{ data['email']}}
+        Votre mot
 
     {% else %}
         Error, no data found
@@ -27,6 +17,4 @@
     Cordialement,<br>
 
     Ecnesba
-
-{% endblock %}
 
