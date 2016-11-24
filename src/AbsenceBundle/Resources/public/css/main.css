@@ -67,3 +67,6 @@ width:250px; border: 2px solid black; margin-left: 50px; margin-bottom:50px; dis
     margin: auto;
     text-align: center
 }
+
+.modal-backdrop
+{display:none;}
