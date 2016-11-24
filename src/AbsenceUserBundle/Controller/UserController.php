@@ -251,6 +251,16 @@ class UserController extends Controller
                 ->getRepository('AbsenceBundle:Absence')
                 ->findBy(array('user' => $user));
             foreach ($absences as $absence) {
+                $listfiles = $em
+                    ->getRepository('AbsenceBundle:Files')
+                    ->findby(array('absence'=>$absence));
+
+                foreach($listfiles as $file)
+                {
+                    $em->remove($file);
+                    $em->flush();
+                }
+
                 $em->remove($absence);
             }
 

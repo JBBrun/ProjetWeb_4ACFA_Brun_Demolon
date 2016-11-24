@@ -1,6 +1,6 @@
- Bonjour {{ User.username }},<br><br>
+ Bonjour {{ user.username }},<br><br>
 
-    Veuillez justifié l'absence du {{ absence.date }}
+    Veuillez justifié l'absence du {{ absence.date|date("m/d/Y H-i") }}
     Bonne utilisation du service <br>
 
     Cordialement,<br>

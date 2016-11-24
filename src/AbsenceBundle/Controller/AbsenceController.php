@@ -70,10 +70,10 @@ class AbsenceController extends Controller
                 $em->persist($absence);
                 $em->flush();
 
-                $message = \Swift_Message::newInstance()
-                    ->setSubject('Absence du '. $absence->getDate())
+               $message = \Swift_Message::newInstance()
+                    ->setSubject('Absence ')
                     ->setFrom($this->getParameter('mailer_user'))
-                    ->setTo($this->setTo($user->getEmail()))
+                    ->setTo($user->getEmail())
                     ->setBody(
                         $this->renderView(
                             'AbsenceBundle:absence:mailAbsence.html.twig',
@@ -204,6 +204,15 @@ class AbsenceController extends Controller
             ->getRepository('AbsenceBundle:Absence')
             ->find($id);
 
+        $listfiles = $em
+            ->getRepository('AbsenceBundle:Files')
+            ->findby(array('absence'=>$absence));
+
+        foreach($listfiles as $file)
+        {
+            $em->remove($file);
+            $em->flush();
+        }
 
         $em->remove($absence);
         $em->flush();
@@ -225,17 +234,27 @@ class AbsenceController extends Controller
         $em = $this->getDoctrine()->getManager();
         $absences = $em
             ->getRepository('AbsenceBundle:Absence')
-            ->find(array('justify' => 1));
+            ->findby(array());
 
 
         foreach ($absences as $absence) {
+            $listfiles = $em
+                ->getRepository('AbsenceBundle:Files')
+                ->findby(array('absence'=>$absence));
+
+            foreach($listfiles as $file)
+            {
+                $em->remove($file);
+                $em->flush();
+            }
+
             $em->remove($absence);
             $em->flush();
         }
 
         $request->getSession()
             ->getFlashBag()
-            ->add('success', 'Toutes les Absences justifiées ont été supprimées');
+            ->add('success', 'Toutes les Absences ont été supprimées');
 
         return $this->redirectToRoute('list_absence');
 

@@ -1,4 +1,4 @@
-<div class="modal fade" id="infos">
+<div class="modal fade" id="infos-{{ user.id }}">
     <div class="modal-dialog">
         <form enctype="multipart/form-data" action="{{ path('user_list_delete',{"id" : user.id}) }}" method="post">
             <div class="modal-content">
@@ -21,6 +21,6 @@
 </div>
 
 
-<a data-toggle="modal" href="#infos">
+<a data-toggle="modal" href="#infos-{{ user.id }}">
     <i class="fa fa-times-circle"></i>
 </a>

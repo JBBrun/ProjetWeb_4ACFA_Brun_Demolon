@@ -44,8 +44,7 @@
                     <button type="submit" class="btn btn-primary center-block"  class="btn btn-default  center-block">Rechercher un utilisateur</button><br><br>
                 </a>
         {% endif %}#}
-
-      {#  {%  include "AbsenceBundle:absence:deleteAbsence.html.twig" with {"delete" : "all" }%} #}
+        {%  include "AbsenceBundle:absence:deleteAbsenceALL.html.twig" %}
 
         {% if app.session.flashBag.has('success') %}
             <div class="alert alert-success">
@@ -101,8 +100,9 @@
                 <td> {{ absence.reason }}</td>
 
                     <td> {% if absence.justify == 1 %}
+                            Justifiée
                          {% else %}
-                              Non justifié
+                              Non justifiée
                         {% endif %}
                     </td>
                   <td>
@@ -115,7 +115,7 @@
                 </td>
                 <td>
                     <a href="{{ path("absence_list_update",{'idUser': listUser[absence.id].id, 'idAbsence' : absence.id})}}" /><i class="fa fa-edit"></i></a>
-                        {%  include "AbsenceBundle:absence:deleteAbsence.html.twig" with {"absence" : absence,"delete" : "unique" }%}
+                        {%  include "AbsenceBundle:absence:deleteAbsence.html.twig" %}
                 </td>
 
             </tr>
