@@ -9,6 +9,7 @@
 
 {% block body %}
 
+    <div class="size-block">
     <i class="text-center center-block">Un mail va lui être envoyer afin de l'avertir de la création de son compte<br><br></i>
 
 
@@ -31,11 +32,11 @@
             <a href="{{ path("absence_user_list") }}">
                 <button type="button" class="btn btn-primary">Retour liste utilisateur</button>
             </a>
-            
-            <a href="{{ path("fos_user_register") }}">
+
+            <a href="/register">
                 <button type="button" class="btn btn-primary ">Ajouter un utilisateur</button>
             </a>
         </div>
     </div>
-
+    </div>
 {% endblock %}

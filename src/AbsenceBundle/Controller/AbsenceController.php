@@ -69,7 +69,7 @@ class AbsenceController extends Controller
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($absence);
                 $em->flush();
-
+/*
                $message = \Swift_Message::newInstance()
                     ->setSubject('Absence ')
                     ->setFrom($this->getParameter('mailer_user'))
@@ -83,6 +83,7 @@ class AbsenceController extends Controller
                         ));
 
                 $this->get('mailer')->send($message);
+*/
 
                 $request->getSession()
                     ->getFlashBag()
