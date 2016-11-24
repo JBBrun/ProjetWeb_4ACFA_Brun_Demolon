@@ -64,19 +64,19 @@ class RegistrationController extends Controller
               $data = $form->getData();
 
 
-          /*      $message = \Swift_Message::newInstance()
-                    ->setSubject('Compte activé')
+               $message = \Swift_Message::newInstance()
+                    ->setSubject('Création de compte')
                     ->setFrom($this->getParameter('mailer_user'))
-                    ->setTo($this->setTo($data->getEmail()))
+                    ->setTo($data->getEmail())
                     ->setBody(
                         $this->renderView(
-                            'AbsenceBundle:mail:InscriptionEmail.html.twig',
-                            array('data' => $data),
+                            'AbsenceUserBundle:mail:registrationEmail.html.twig',
+                            array('user' => $data,'mdpdefault'=>$this->getParameter('mdpdefault')),
                             'text/html'
 
                         ));
 
-                $this->get('mailer')->send($message);*/
+                $this->get('mailer')->send($message);
 
 
                 $userManager = $this->container->get('fos_user.user_manager');
