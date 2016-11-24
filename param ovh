@@ -1,0 +1,20 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_host: jeanbaptiaroot.mysql.db
+    database_port: null
+    database_name: jeanbaptiaroot
+    database_user: jeanbaptiaroot
+    database_password: Fontaine05
+    mailer_transport: smtp
+    mailer_host: smtp.jean-baptistebrun.com
+    mailer_user: admin@jean-baptistebrun.com
+    mailer_password: Fontaine05
+    mailer_encryption: null
+    mailer_auth: login
+    mailer_port: 587
+    mailer_destination: jeanbapt.brun@gmail.com
+    mailer_sender: Ecnesba
+    secret: ThisTokenIsNotSoSecretChangeIt
+    locale: fr
+    mdpdefault: Absence2016
+
