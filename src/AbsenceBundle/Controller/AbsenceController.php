@@ -11,6 +11,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use AbsenceBundle\Entity\Absence;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use AbsenceUserBundle\Entity\User;
 
 /**
@@ -70,10 +72,12 @@ class AbsenceController extends Controller
                 $em->persist($absence);
                 $em->flush();
 
-               $message = \Swift_Message::newInstance()
+                $email = $user->getEmail();
+             
+              $message = \Swift_Message::newInstance()
                     ->setSubject('Absence')
                     ->setFrom($this->getParameter('mailer_user'))
-                    ->setTo($user->getEmail())
+                    ->setTo($email)
                     ->setBody(
                         $this->renderView(
                             'AbsenceBundle:absence:mailAbsence.html.twig',
@@ -83,6 +87,7 @@ class AbsenceController extends Controller
                         ));
 
                 $this->get('mailer')->send($message);
+
 
                 $request->getSession()
                     ->getFlashBag()
