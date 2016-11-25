@@ -13,9 +13,9 @@
     <!--<link rel="stylesheet" href="http://{{ app.request.server.get("HTTP_HOST") }}/bundles/Absence/css/templateMail.css"/>-->
 </head>
 <div style="background: #FFFFFF; color: #000000 !important; font-family: Arial; font-size: 14px;" bgcolor="#FFFFFF">
-    <div style="background-repeat: no-repeat; display: inline-block; width:50%; float:left;">
+   {# <div style="background-repeat: no-repeat; display: inline-block; width:50%; float:left;">
         <img src="http://{{ app.request.server.get("HTTP_HOST") }}/bundles/absence/images/template-4.jpg" style=" background-repeat: no-repeat; border: 0; display: inline-block; height: 60px; line-height: 0px; max-height: 60px; max-width: 35px; min-height: 60px; min-width: 35px; width: 35px" />
-    </div>
+    </div>#}
     {% block login_template %}
     {% endblock %}
     <div class="center-block" style ="margin-top: -20px; display: inline-block; width:100%; float:left; z-index: 10;  position: relative">
@@ -29,10 +29,10 @@
      {%  endblock %}
 </div>
 
-
+{#
 <div style="margin-top: 51px;  background-repeat: no-repeat; height:191px; position: fixed; rigth:0; top:0;  display: inline-block; width:50%; float:left; background-position:right top; background-image:url(http://{{ app.request.server.get("HTTP_HOST") }}/bundles/absence/images/template-1.jpg);"></div>
 <div style=" margin-bottom: 46px; background-repeat: no-repeat; height:191px; position: fixed; left:0; bottom:0;  display: inline-block; width:50%; float:left; background-position:left bottom; background-image:url(http://{{ app.request.server.get("HTTP_HOST") }}/bundles/absence/images/template-3.jpg);"></div>
-<div style="background-repeat: no-repeat; height:100px; position: fixed; left:0; bottom:0;  display: inline-block; width:50%; float:left; background-position:left bottom; background-image:url(http://{{ app.request.server.get("HTTP_HOST") }}/bundles/absence/images/template-2.jpg);"></div>
+<div style="background-repeat: no-repeat; height:100px; position: fixed; left:0; bottom:0;  display: inline-block; width:50%; float:left; background-position:left bottom; background-image:url(http://{{ app.request.server.get("HTTP_HOST") }}/bundles/absence/images/template-2.jpg);"></div>#}
 </div>
 
 </html>
